@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\EventController;
+
+Route::get('/', [EventController::class, 'index']);
+Route::get('/events/create', [EventController::class, 'create']);
+Route::get('/events/{id}', [EventController::class, 'show']);
+Route::post('/events',[EventController::class, 'store']);
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
+
+Route::get('/produtos_teste/{id?}', function ($id = null) {
+    return view('produto', ['id' => $id]);
+});
+
+
+
+Route::get('/produtos', function (Request $request) {
+    $search = $request->search;
+
+    return view('produtos', ['search' => $search]);
+});
