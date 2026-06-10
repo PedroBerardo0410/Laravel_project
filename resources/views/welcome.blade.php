@@ -12,8 +12,14 @@
 </div>
 
 <div id="events-container" class="col-md-12">
-    <h2>Proximos eventos</h2>
-    <p class="subtitle">Veja os eventos dos próximos dias</p>
+    @if($search)
+        <h2>Buscando por: {{ $search }}</h2>
+    @else
+        <h2>Proximos eventos</h2>
+        <p class="subtitle">Veja os eventos dos próximos dias</p>
+    @endif
+
+
     <div id="cards-container" class="row">
             @foreach ($events as $event)
                 <div class="card col-md-3">
@@ -21,12 +27,14 @@
                     <div class="card-body">
                         <p class="card-date">{{ date('d/m/Y', strtotime($event->date)) }}</p>
                         <h5 class="card-title">{{ $event->title }}</h5>
-                        <p class="card-participants"> X Participantes</p>
+                        <p class="card-participants"> {{ count($event->users) }} participantes</p>
                         <a href="/events/{{ $event->id }}" class="btn btn-primary">Saiba mais</a>
                     </div>
                 </div>
             @endforeach
-            @if(count($events) == 0)
+            @if(count($events) == 0 && $search)
+                <p>Nao foi possivel encontrar nenhum evento com {{ $search }}! <a href="/">Ver todos os eventos</a></p>
+            @elseif(count($events) == 0)
                 <p>Não ha eventos disponiveis</p>
             @endif
     </div>
