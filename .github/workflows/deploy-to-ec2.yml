@@ -16,7 +16,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           ARGS: "-rltgoDzvo --delete"
           SOURCE: "./"
-          REMOTE_HOST: "ec2-34-233-135-108.compute-1.amazonaws.com"
+          REMOTE_HOST: ${{ secrets.EC2_HOST }}
           REMOTE_USER: "ubuntu"
           TARGET: "/var/www/html/hdcevents"
           EXCLUDE: "/vendor/, /node_modules/, .env, /storage/logs/, /storage/framework/"
